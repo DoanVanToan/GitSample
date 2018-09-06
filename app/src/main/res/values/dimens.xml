@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Song item layout. -->
+    <dimen name="image_song_width">54dp</dimen>
+    <dimen name="image_song_height">54dp</dimen>
+    <dimen name="text_image_song_margin">8dp</dimen>
+    <dimen name="item_song_padding">4dp</dimen>
+</resources>
