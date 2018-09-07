@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package framgia.com.gitsample.util
+package framgia.com.gitsample.extension
 
 
+import android.content.pm.PackageManager
 import android.support.annotation.IdRes
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
@@ -58,3 +60,15 @@ private inline fun FragmentManager.transact(action: FragmentTransaction.() -> Un
         action()
     }.commit()
 }
+
+fun AppCompatActivity.isPermissionGranted(permission: String) =
+        ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+
+fun AppCompatActivity.shouldShowPermissionRationale(permission: String) =
+        ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
+
+fun AppCompatActivity.requestPermission(permission: String, requestId: Int) =
+        ActivityCompat.requestPermissions(this, arrayOf(permission), requestId)
+
+fun AppCompatActivity.batchRequestPermissions(permissions: Array<String>, requestId: Int) =
+        ActivityCompat.requestPermissions(this, permissions, requestId)

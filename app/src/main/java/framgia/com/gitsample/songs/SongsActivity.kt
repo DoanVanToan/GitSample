@@ -1,9 +1,9 @@
 package framgia.com.gitsample.songs
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import framgia.com.gitsample.R
-import framgia.com.gitsample.util.replaceFragmentInActivity
+import framgia.com.gitsample.extension.replaceFragmentInActivity
 
 class SongsActivity : AppCompatActivity() {
 
