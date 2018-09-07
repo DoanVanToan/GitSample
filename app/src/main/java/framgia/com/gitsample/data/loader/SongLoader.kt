@@ -1,7 +1,9 @@
 package framgia.com.gitsample.data.loader
 
+import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
+import android.net.Uri
 import android.provider.MediaStore
 import android.text.TextUtils
 import framgia.com.gitsample.data.Song
@@ -20,16 +22,20 @@ object SongLoader {
         return getSongsForCursor(makeSongCursor(context, null, null))
     }
 
+    fun getAlbumArtUri(albumId: Long): Uri {
+        return ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumId)
+    }
+
     private fun getSongsForCursor(cursor: Cursor?): ArrayList<Song> {
         val arrayList = ArrayList<Song>()
         if (cursor != null && cursor.moveToFirst())
             do {
                 val id = cursor.getLong(0)
-                val title = cursor.getString(1)
-                val artistName = cursor.getString(2)
-                val albumName = cursor.getString(3)
-                val duration = cursor.getInt(4)
-                val albumId = cursor.getLong(5)
+                val albumId = cursor.getLong(1)
+                val title = cursor.getString(2)
+                val artistName = cursor.getString(3)
+                val albumName = cursor.getString(4)
+                val duration = cursor.getInt(5)
                 val data = cursor.getString(6)
 
                 arrayList.add(Song(id, albumId, title, artistName, albumName, duration, data))
