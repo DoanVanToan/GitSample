@@ -9,28 +9,9 @@ data class Song(
         var artistName: String,
         var albumName: String,
         var duration: Int,
-        var data: String,
-        var art: ByteArray?
+        var data: String
 ) : Serializable {
-
-    companion object {
-        fun createSampleData(): ArrayList<Song> {
-            val list = ArrayList<Song>()
-
-            for (i in 0..100) {
-                val song = Song(
-                        i.toLong(),
-                        (i + 10).toLong(),
-                        "title $i",
-                        "artist $i",
-                        "",
-                        0,
-                        "",
-                        null)
-                list.add(song)
-            }
-
-            return list
-        }
+    override fun toString(): String {
+        return "$id: $albumId; $title; $artistName; $albumName; $duration; $data"
     }
 }
