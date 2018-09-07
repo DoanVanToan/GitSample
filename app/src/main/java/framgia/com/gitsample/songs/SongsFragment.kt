@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import framgia.com.gitsample.R
-import framgia.com.gitsample.data.Song
+import framgia.com.gitsample.data.SongList
 import kotlinx.android.synthetic.main.fragment_songs.*
 
 
@@ -31,7 +31,6 @@ class SongsFragment : Fragment(), SongsContract.View {
         listSongsView.adapter = songsAdapter
         swipeRefresh.setOnRefreshListener {
             presenter.start()
-            swipeRefresh.isRefreshing = false
         }
 
         presenter.start()
@@ -39,12 +38,10 @@ class SongsFragment : Fragment(), SongsContract.View {
 
     override fun setLoadingIndicator(active: Boolean) {
         swipeRefresh.isRefreshing = active
-        notifyText.visibility = View.GONE
     }
 
-    override fun showSongs(songs: ArrayList<Song>) {
-        swipeRefresh.isRefreshing = false
-        songsAdapter.songs = songs
+    override fun showSongs() {
+        songsAdapter.songs = SongList.list
         songsAdapter.notifyDataSetChanged()
         notifyText.visibility = View.GONE
     }

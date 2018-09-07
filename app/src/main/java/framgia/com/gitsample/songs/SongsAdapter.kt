@@ -4,8 +4,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import framgia.com.gitsample.R
 import framgia.com.gitsample.data.Song
+import framgia.com.gitsample.data.loader.SongLoader
 import kotlinx.android.synthetic.main.list_item_song.view.*
 
 class SongsAdapter(var songs: ArrayList<Song>) : RecyclerView.Adapter<SongsAdapter.SongViewHolder>() {
@@ -32,6 +34,11 @@ class SongsAdapter(var songs: ArrayList<Song>) : RecyclerView.Adapter<SongsAdapt
         fun bind(song: Song) {
             view.titleSong.text = song.title
             view.subtitleSong.text = song.artistName
+            val albumArtUri = SongLoader.getAlbumArtUri(song.albumId)
+            Picasso.get()
+                    .load(albumArtUri)
+                    .placeholder(R.drawable.ic_action_music)
+                    .into(view.imageSong)
         }
     }
 }
