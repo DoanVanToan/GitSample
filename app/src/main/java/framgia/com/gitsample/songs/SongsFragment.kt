@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import framgia.com.gitsample.R
+import framgia.com.gitsample.data.Song
 import kotlinx.android.synthetic.main.fragment_songs.*
 
 
@@ -14,13 +15,7 @@ class SongsFragment : Fragment(), SongsContract.View {
 
     override lateinit var presenter: SongsContract.Presenter
 
-    private lateinit var songsPresenter: SongsPresenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        songsPresenter = SongsPresenter(this)
-    }
+    private val songsAdapter = SongsAdapter(ArrayList())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -33,6 +28,35 @@ class SongsFragment : Fragment(), SongsContract.View {
 
         // Setup views
         listSongsView.layoutManager = LinearLayoutManager(context)
+        listSongsView.adapter = songsAdapter
+        swipeRefresh.setOnRefreshListener {
+            presenter.start()
+            swipeRefresh.isRefreshing = false
+        }
+
+        presenter.start()
+    }
+
+    override fun setLoadingIndicator(active: Boolean) {
+        swipeRefresh.isRefreshing = active
+        notifyText.visibility = View.GONE
+    }
+
+    override fun showSongs(songs: ArrayList<Song>) {
+        swipeRefresh.isRefreshing = false
+        songsAdapter.songs = songs
+        songsAdapter.notifyDataSetChanged()
+        notifyText.visibility = View.GONE
+    }
+
+    override fun showLoadingSongsError() {
+        notifyText.text = getString(R.string.loading_songs_error)
+        notifyText.visibility = View.VISIBLE
+    }
+
+    override fun showNoSongs() {
+        notifyText.text = getString(R.string.empty_list)
+        notifyText.visibility = View.VISIBLE
     }
 
     companion object {

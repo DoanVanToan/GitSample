@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GitSample</string>
+    <string name="loading_songs_error"> Loading songs error </string>
+    <string name="empty_list">Empty list</string>
 </resources>
